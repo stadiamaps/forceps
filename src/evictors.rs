@@ -80,7 +80,7 @@ trait MinSzEvictor {
             let (mut total_size, scan) =
                 find_evict_candidates::<Self::Candidate>(cache, self.batch_size())?;
             // break if there are no candidates (cache is completely empty)
-            if scan.len() <= 0 {
+            if scan.is_empty() {
                 break;
             }
 
@@ -279,12 +279,12 @@ impl MinSzEvictor for LruEvictor {
     type Candidate = LruEc;
 
     #[inline]
-    fn min_size(&self) -> u64 {
-        self.min_sz
-    }
-    #[inline]
     fn batch_size(&self) -> usize {
         self.batch_size
+    }
+    #[inline]
+    fn min_size(&self) -> u64 {
+        self.min_sz
     }
 }
 #[async_trait]

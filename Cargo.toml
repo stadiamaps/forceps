@@ -10,12 +10,18 @@ keywords = ["database", "cache", "async", "persistent", "disk"]
 categories = ["asynchronous", "database"]
 edition = "2021"
 
+[features]
+default = ["md5"]
+md5 = ["dep:md5"]
+xxhash = ["dep:twox-hash"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 sled = "0.34.6"
 hex = "0.4.3"
-md5 = "0.7.0"
+md5 = { version = "0.7.0", optional = true }
+twox-hash = { version = "1.6.3", optional = true }
 rand = {version = "0.8.3", features = ["small_rng", "getrandom"], default-features = false}
 bson = "2.6.1"
 serde = {version = "1.0.125", features = ["derive"]}

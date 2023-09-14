@@ -54,6 +54,9 @@
 #![warn(missing_docs)]
 #![warn(rustdoc::broken_intra_doc_links)]
 
+#[cfg(all(feature = "md5", feature = "xxhash"))]
+compile_error!("feature \"md5\" and feature \"xxhash\" cannot be enabled at the same time");
+
 use std::error;
 use std::io;
 
@@ -115,7 +118,7 @@ pub use cache::Cache;
 
 mod metadata;
 pub(crate) use metadata::MetaDb;
-pub use metadata::{Md5Bytes, Metadata};
+pub use metadata::{HashBytes, Metadata};
 
 /// A collection of [`Cache`] eviction algorithms and generics
 ///
